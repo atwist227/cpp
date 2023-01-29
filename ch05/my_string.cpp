@@ -1,14 +1,16 @@
 #include "my_string.h"
 #include <cstring>
 
-String::String(const char *initVal){ // 构造函数
+// 构造函数
+String::String(const char *initVal){
     len = std::strlen(initVal);
     str = new char[len + 1];
     for (unsigned int i{0}; i <= len; i++)
         str[i] = initVal[i];
 }
 
-String::String(unsigned int num, char c){ // 构造长为num的全为c的字符串
+// 构造长为num的全为c的字符串
+String::String(unsigned int num, char c){
     len = num;
     str = new char[len + 1];
     for (unsigned int i{0}; i < len; i++)
@@ -16,25 +18,33 @@ String::String(unsigned int num, char c){ // 构造长为num的全为c的字符�
     str[len] = '\0';
 }
 
-String::String(){ // 无参构造函数
+// 无参构造函数
+String::String(){ 
     len = 0;
     str = new char[1]{'\0'};
 }
 
-String::String(const String &initVal){// 深复制
+// 深复制
+String::String(const String &initVal){
     len = initVal.len;       // 复制长度
     str = new char[len + 1]; // 申请新的内存空间
     for (unsigned i{0}; i <= len; i++)
         str[i] = initVal.str[i]; // 然后把内存里的值逐一复制
 }
 
-String::~String(){// 解析函数，指示在变量离开存储期时要做的事，一般都是释放new出来的内存
+// 解析函数，指示在变量离开存储期时要做的事，一般都是释放new出来的内存
+String::~String(){
     delete[] str; // 释放 str 所指向的内存
 }
 
 
-// []运算符重载，实现类似数组的访问
-char String::operator[](unsigned int n) const{
+// []运算符重载，实现类似数组的访问，非只读版本
+char& String::operator[](unsigned n){
+    return str[n];
+}
+
+// []运算符重载，只读版本
+const char& String::operator[](unsigned n) const{
     return str[n];
 }
 
@@ -48,12 +58,14 @@ String String::operator+(const String &b) const{   // 最好是 const T&，避�
     return result;                           // 把 result 返回就可以
 }
 
+// +=重载
 String& String::operator+=(const String &b){ // 返回a的引用
     String result(operator+(b));             // 直接调用 operator+ 成员函数
     operator=(result);                       // 调用 assign 成员把结果赋值给自己
     return *this;                            // this指向类
 }
 
+// =重载
 String& String::operator=(const String &assignVal){
     if (str == assignVal.str)
         return *this; // 自赋值直接返回
@@ -65,6 +77,7 @@ String& String::operator=(const String &assignVal){
     return *this;
 }
 
+// ==重载
 bool String::operator==(const String &rhs) const{
     if (len != rhs.len) return false;
     for (int i{0}; i < len; i++){
@@ -74,7 +87,6 @@ bool String::operator==(const String &rhs) const{
     return true;
 }
 
-// 类型转换重载
 // String到bool类型的转换, explicit表示只能显式转换（if for while 条件；&& || ! 操作数，?: 第一操作数；也考虑显式类型转换）
 String::operator bool() const{
     if (len == 0)
@@ -82,10 +94,7 @@ String::operator bool() const{
     return true;
 }
 
-String::operator unsigned() const{
-    return len;
-}
-
+// 输出字符串长度
 unsigned String::length() const{
     return len;
 }
