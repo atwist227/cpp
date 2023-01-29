@@ -11,13 +11,13 @@ public:
     String(unsigned, char);
     ~String();
 
-    char operator[](unsigned);
-    String operator+(const String&);
+    char operator[](unsigned) const;
+    String operator+(const String&) const;
     String& operator+=(const String&);
     String& operator=(const String&);
-    bool operator==(const String&);
-    explicit operator bool();
-    explicit operator unsigned();
+    bool operator==(const String&) const;
+    explicit operator bool() const;
+    explicit operator unsigned() const;
 
-    unsigned length();
+    unsigned length() const;
 };

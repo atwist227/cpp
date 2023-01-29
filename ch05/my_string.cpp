@@ -34,12 +34,12 @@ String::~String(){// 解析函数，指示在变量离开存储期时要做的�
 
 
 // []运算符重载，实现类似数组的访问
-char String::operator[](unsigned int n){
+char String::operator[](unsigned int n) const{
     return str[n];
 }
 
 // +重载，实现字符串拼接
-String String::operator+(const String &b){   // 最好是 const T&，避免复制开销
+String String::operator+(const String &b) const{   // 最好是 const T&，避免复制开销
     char *newstr{new char[len + b.len + 1]}; // 分配新的空间，大小为两个长度相加
     std::strcpy(newstr, str);                // 把 a 的字符串复制到新空间的前半段
     std::strcpy(newstr + len, b.str);        // 把 b 的字符串复制到新空间的后半段
@@ -65,7 +65,7 @@ String& String::operator=(const String &assignVal){
     return *this;
 }
 
-bool String::operator==(const String &rhs){
+bool String::operator==(const String &rhs) const{
     if (len != rhs.len) return false;
     for (int i{0}; i < len; i++){
         if(str[i] != rhs.str[i])
@@ -76,16 +76,16 @@ bool String::operator==(const String &rhs){
 
 // 类型转换重载
 // String到bool类型的转换, explicit表示只能显式转换（if for while 条件；&& || ! 操作数，?: 第一操作数；也考虑显式类型转换）
-String::operator bool(){
+String::operator bool() const{
     if (len == 0)
         return false;
     return true;
 }
 
-String::operator unsigned(){
+String::operator unsigned() const{
     return len;
 }
 
-unsigned String::length(){
+unsigned String::length() const{
     return len;
 }

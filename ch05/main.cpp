@@ -1,16 +1,12 @@
 #include"my_string.cpp"
-#include"my_print.cpp"
-
-int main(){
-    // String a("Hello"),b("Hi");
-    // b=a;
-    // if (a){
-    //     print("String is not empty.");
-    // }
-    // else{
-    //     print("String is empty. Aborted.");
-    // }
-
-    String a("42"),b("24");
-    print(a==b);
+#include <iostream>
+// 只需要 x 的值，所以用只读引用防止复制开销和更改
+bool isOk(const String& x) {
+    return x == "Hello" || x == "Hi";
+}
+int main() {
+    String a("Hello");
+    if (isOk(a)) {
+        std::cout << "How are you?" << std::endl;
+    }
 }
