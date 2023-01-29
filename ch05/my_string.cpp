@@ -98,3 +98,11 @@ String::operator bool() const{
 unsigned String::length() const{
     return len;
 }
+
+// 查找第一个匹配的字符
+unsigned String::find(char c) const{
+    for (unsigned i{0}; i < len; i++){
+        if (str[i] == c) return i;
+    }
+    return npos;
+}

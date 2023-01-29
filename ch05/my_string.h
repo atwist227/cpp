@@ -4,7 +4,8 @@ private:
 
 public:
     char* str;
-
+    static constexpr unsigned npos{4294967295};
+    
     String();
     String(const String&);
     String(const char*);
@@ -20,4 +21,5 @@ public:
     explicit operator bool() const;
 
     unsigned length() const;
+    unsigned find(char c) const;
 };
